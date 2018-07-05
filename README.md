@@ -1,5 +1,5 @@
-# minishell
+# minishell [in progress ...]
 minishell project @ 42 school
 
-# done:
-[x] - git and Makefile setup
+# things done
+- [ x ]git and Makefile setup
