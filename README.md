@@ -2,4 +2,4 @@
 minishell project @ 42 school
 
 # things done
-- [ x ] git and Makefile setup
+- [x] git and Makefile setup
