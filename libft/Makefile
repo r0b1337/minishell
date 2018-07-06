@@ -15,7 +15,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 CFILES = $(addsuffix .c, $(SRCS))
 OFILES = $(addsuffix .o, $(SRCS))
-INC = libft.h
+INC = -I includes/
 SRCS =\
 	ft_atoi\
 	ft_bzero\
@@ -83,7 +83,8 @@ SRCS =\
 	ft_intsize\
 	ft_isblanked\
 	ft_putcolor\
-	ft_nbrlen
+	ft_nbrlen\
+	get_next_line
 
 RED = \033[1;31m
 GREEN = \033[1;32m
@@ -94,8 +95,8 @@ RESET = \033[0m
 
 all: $(NAME)
 
-$(NAME): $(CFILES) libft.h Makefile
-	@$(CC) $(CFLAGS) -I $(INC) -c $(CFILES)
+$(NAME): $(CFILES) Makefile
+	@$(CC) $(CFLAGS) $(INC) -c $(CFILES)
 	@ar rc $(NAME) $(OFILES)
 	@ranlib $(NAME)
 	@echo "$(RED)\t\t\t(LIBFT)\t$(GREEN)libft has been built.$(RESET)"

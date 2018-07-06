@@ -12,7 +12,7 @@
 
 NAME=minishell
 CC=gcc
-INCLUDES= -I ./includes -I ./libft
+INCLUDES= -I ./includes -I ./libft/includes/
 LIBFT= libft/libft.a
 SRCS= ./srcs/main.c\
 

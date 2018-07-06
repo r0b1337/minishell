@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putcolor.c                                      :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdurst <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/12 22:53:50 by rdurst            #+#    #+#             */
-/*   Updated: 2018/06/11 15:03:00 by rdurst           ###   ########.fr       */
+/*   Created: 2017/12/07 21:07:09 by rdurst            #+#    #+#             */
+/*   Updated: 2018/03/18 16:29:40 by rdurst           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# define BUFF_SIZE 16
+# include "libft.h"
+# include <fcntl.h>
 
-void	ft_putcolor(char *color, char *str)
-{
-	ft_putstr(color);
-	ft_putstr(str);
-	ft_putstr(RESET);
-}
+int				get_next_line(const int fd, char **line);
+
+#endif

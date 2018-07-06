@@ -20,6 +20,18 @@
 #include <sys/uio.h>
 #include <sys/stat.h>
 #include <dirent.h>
+#include <string.h>
+#include <errno.h>
+#include <signal.h>
 #include "libft.h"
+#include "get_next_line.h"
+
+char	**envp;
+
+void	init_env(char **env);
+void	print_env(void);
+char	*get_env_var(char *var);
+char	*get_var_name(char *var);
+char	*get_exec(char *path);
 
 #endif
