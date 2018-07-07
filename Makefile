@@ -15,6 +15,7 @@ CC=gcc
 INCLUDES= -I ./includes -I ./libft/includes/
 LIBFT= libft/libft.a
 SRCS= ./srcs/main.c\
+	./srcs/env.c\
 
 OPTIONS= -Wall -Wextra -Werror
 DEBUGFLAG= -g3

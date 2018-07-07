@@ -26,11 +26,13 @@ int		main(int ac, char **av, char **env)
 	init_env(env);
 	while(1)
 	{
-		ft_putcolor(GREEN, "(r0b) $> ");
-		if (get_next_line(STDIN_FILENO, &line) > 0 && !ft_strequ(line, "\n"))
+		print_prompt();
+		if (get_next_line(STDIN_FILENO, &line) > 0 && !ft_strequ(line, ""))
 		{
 			command = ft_strsplit(line, ' ');
 			ft_strdel(&line);
+			if (is_builtin(command[0], command))
+				continue ;
 			child = fork();
 			if (child == 0)
 				child = execve(get_exec(command[0]), command, envp);
@@ -71,23 +73,17 @@ void	init_env(char **env)
 	return ;
 }
 
-void	print_env(void)
-{
-	int i;
-
-	i = 0;
-	while (envp[i])
-		ft_putendl(envp[i++]);
-}
-
 char	*get_env_var(char *var)
 {
 	int i;
 
 	i = 0;
-	while (ft_strcmp(get_var_name(envp[i]), var) != 0)
+	while (envp[i] && ft_strcmp(get_var_name(envp[i]), var) != 0)
 		i++;
-	return (envp[i]);
+	if(envp[i])
+		return (envp[i]);
+	else
+		return (NULL);
 }
 
 char	*get_var_name(char *var)
@@ -119,4 +115,26 @@ char	*get_exec(char *path)
 	if (i == size)
 		return (NULL);
 	return (newpath);
+}
+
+void	print_prompt(void)
+{
+	ft_putcolor(GREEN, "$> ");
+}
+
+int	is_builtin(char *bin, char **av)
+{
+	if(ft_strequ(bin, "echo"))
+		return (1);
+	if(ft_strequ(bin, "cd"))
+		return (1);
+	if(ft_strequ(bin, "setenv"))
+		return (1);
+	if(ft_strequ(bin, "unsetenv"))
+		return (1);
+	if(ft_strequ(bin, "env"))
+		return (env_builtin(av));
+	if(ft_strequ(bin, "exit"))
+		return (1);
+	return (0);
 }

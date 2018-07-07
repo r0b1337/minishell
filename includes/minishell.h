@@ -29,9 +29,13 @@
 char	**envp;
 
 void	init_env(char **env);
-void	print_env(void);
+int	print_env(void);
+void	env_error(char *arg);
+int	env_builtin(char **av);
 char	*get_env_var(char *var);
 char	*get_var_name(char *var);
 char	*get_exec(char *path);
+void	print_prompt(void);
+int	is_builtin(char *bin, char **av);
 
 #endif
