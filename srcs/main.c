@@ -16,13 +16,8 @@ int		main(int ac, char **av, char **env)
 {
 	char *line;
 	char **command;
-	int status;
-	pid_t child;
-	int i;
 
 	line = NULL;
-	i = -1;
-	status = 0;
 	init_env(env);
 	while(1)
 	{
@@ -33,19 +28,8 @@ int		main(int ac, char **av, char **env)
 			ft_strdel(&line);
 			if (is_builtin(command[0], command))
 				continue ;
-			child = fork();
-			if (child == 0)
-				child = execve(get_exec(command[0]), command, envp);
-			wait(&child);
-			if (child == -1)
-			{
-				ft_putstr("-minishell: ");
-				ft_putstr(command[0]);
-				ft_putstr(": command not found\n");
-			}
-			while (command[++i])
-				ft_strdel(&command[i]);
-			i = -1;
+			exec_command(command);
+			free_command(command);
 			free(command);
 			command = NULL;
 			continue ;
@@ -135,6 +119,13 @@ int	is_builtin(char *bin, char **av)
 	if(ft_strequ(bin, "env"))
 		return (env_builtin(av));
 	if(ft_strequ(bin, "exit"))
-		return (1);
+		return (exit_builtin(av));
 	return (0);
+}
+
+void	free_command(char **command)
+{
+	while(*command)
+		ft_strdel(command++);
+	command = NULL;
 }

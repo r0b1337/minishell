@@ -16,6 +16,9 @@ INCLUDES= -I ./includes -I ./libft/includes/
 LIBFT= libft/libft.a
 SRCS= ./srcs/main.c\
 	./srcs/env.c\
+	./srcs/error.c\
+	./srcs/exec.c\
+	./srcs/exit.c\
 
 OPTIONS= -Wall -Wextra -Werror
 DEBUGFLAG= -g3
