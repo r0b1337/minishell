@@ -22,7 +22,6 @@ SRCS= ./srcs/main.c\
 	./srcs/signal_handler.c\
 
 OPTIONS= -Wall -Wextra -Werror
-DEBUGFLAG= -g3
 RM= rm -rf
 
 RED = \033[1;31m

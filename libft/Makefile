@@ -57,6 +57,7 @@ SRCS =\
 	ft_strlcat\
 	ft_strlen\
 	ft_strlen_tab\
+	ft_tabcpy\
 	ft_strmap\
 	ft_strmapi\
 	ft_strncat\

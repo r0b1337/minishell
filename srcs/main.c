@@ -30,7 +30,7 @@ int		main(int ac, char **av, char **env)
 				free_command(command);
 			else
 			{
-				exec_command(command);
+				exec_command(command, envp);
 				free_command(command);
 			}
 		}
@@ -56,15 +56,15 @@ void	init_env(char **env)
 	return ;
 }
 
-char	*get_env_var(char *var)
+char	**get_env_var(char **env, char *var)
 {
 	int i;
 
 	i = 0;
-	while (envp[i] && ft_strcmp(get_var_name(envp[i]), var) != 0)
+	while (env[i] && ft_strcmp(get_var_name(env[i]), var) != 0)
 		i++;
-	if(envp[i])
-		return (envp[i]);
+	if(env[i])
+		return (&env[i]);
 	else
 		return (NULL);
 }
@@ -77,7 +77,7 @@ char	*get_var_name(char *var)
 	return (ret);
 }
 
-char	*get_exec(char *path)
+char	*get_exec(char **env, char *path)
 {
 	char **tmp;
 	struct stat s;
@@ -86,7 +86,7 @@ char	*get_exec(char *path)
 	char *newpath;
 
 	i = 0;
-	tmp = ft_strsplit(get_env_var("PATH"), '=');
+	tmp = ft_strsplit(*get_env_var(env, "PATH"), '=');
 	tmp = ft_strsplit(tmp[1], ':');
 	while (tmp[i])
 		i++;
@@ -124,11 +124,6 @@ int	is_builtin(int ac, char **av)
 
 void	free_command(char **command)
 {
-	char **tmp;
-
-	tmp = command;
 	while(*command)
 		ft_strdel(command++);
-	free(tmp);
-	tmp = NULL;
 }

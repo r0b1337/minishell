@@ -54,6 +54,7 @@ int				ft_isdigit(int c);
 int				ft_isalnum(int c);
 int				ft_isprint(int c);
 int				ft_isascii(int c);
+char				**ft_tabcpy(char **tab);
 char			*ft_strcpy(char *dest, char const *src);
 char			*ft_strncpy(char *dest, char const *src, size_t n);
 int				ft_strucpy(char **dest, char *src, char c);
