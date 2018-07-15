@@ -1,28 +1,30 @@
 #include "minishell.h"
 
-int	exit_builtin(char **command)
+int	exit_builtin(int ac, char **command)
 {
 	int i;
 
 	i = -1;
-	if (command[2] != NULL)
+	
+	if (ac > 2)
 	{
 		exit_error(1, NULL);
-		return (-1);
+		return (1);
 	}
+	else if (ac == 1)
+		exit (1);
 	else
 	{
 		while (command[1] && command[1][++i])
 			if (ft_isalpha(command[1][i]))
 			{
 				exit_error(2, command[1]);
-				return (-1);
+				return (1);
 			}
-		if (command[1] == NULL)
-			exit(1);
 		else
 			exit(ft_atoi(command[1]));
 	}
+	return (1337);
 }
 
 void	exit_error(int no, char *arg)

@@ -41,7 +41,9 @@ typedef struct	s_list
 int				ft_isblanked(char c);
 void			ft_putchar(char c);
 void			ft_putstr(char const *str);
+void			ft_putstr_tab(char **tab);
 size_t			ft_strlen(char const *str);
+int			ft_strlen_tab(char **tab);
 int				ft_strcmp(char const *s1, char const *s2);
 int				ft_atoi(char const *str);
 char			*ft_strdup(char const *src);

@@ -22,20 +22,19 @@ int		main(int ac, char **av, char **env)
 	while(1)
 	{
 		print_prompt();
+		signal(SIGINT, signal_handler);
 		if (get_next_line(STDIN_FILENO, &line) > 0 && !ft_strequ(line, ""))
 		{
 			command = ft_strsplit(line, ' ');
-			ft_strdel(&line);
-			if (is_builtin(command[0], command))
-				continue ;
-			exec_command(command);
-			free_command(command);
-			free(command);
-			command = NULL;
-			continue ;
+			if (is_builtin(ft_strlen_tab(command), command) >= 0)
+				free_command(command);
+			else
+			{
+				exec_command(command);
+				free_command(command);
+			}
 		}
-		else
-			ft_strdel(&line);
+		ft_strdel(&line);
 	}
 	(void)ac;
 	(void)av;
@@ -85,7 +84,7 @@ char	*get_exec(char *path)
 	int i;
 	int size;
 	char *newpath;
-	
+
 	i = 0;
 	tmp = ft_strsplit(get_env_var("PATH"), '=');
 	tmp = ft_strsplit(tmp[1], ':');
@@ -94,7 +93,7 @@ char	*get_exec(char *path)
 	size = i;
 	i = 0;
 	while (tmp[i] && (stat((newpath = ft_strjoin(ft_strjoin(tmp[i], "/"), path)), &s) == -1 
-		|| !(s.st_mode & S_IFREG)))
+				|| !(s.st_mode & S_IFREG)))
 		i++;
 	if (i == size)
 		return (NULL);
@@ -106,26 +105,30 @@ void	print_prompt(void)
 	ft_putcolor(GREEN, "$> ");
 }
 
-int	is_builtin(char *bin, char **av)
+int	is_builtin(int ac, char **av)
 {
-	if(ft_strequ(bin, "echo"))
+	if(ft_strequ(av[0], "echo"))
 		return (1);
-	if(ft_strequ(bin, "cd"))
+	if(ft_strequ(av[0], "cd"))
 		return (1);
-	if(ft_strequ(bin, "setenv"))
+	if(ft_strequ(av[0], "setenv"))
 		return (1);
-	if(ft_strequ(bin, "unsetenv"))
+	if(ft_strequ(av[0], "unsetenv"))
 		return (1);
-	if(ft_strequ(bin, "env"))
-		return (env_builtin(av));
-	if(ft_strequ(bin, "exit"))
-		return (exit_builtin(av));
-	return (0);
+	if(ft_strequ(av[0], "env"))
+		return (env_builtin(ac, av));
+	if(ft_strequ(av[0], "exit"))
+		return (exit_builtin(ac, av));
+	return (-1);
 }
 
 void	free_command(char **command)
 {
+	char **tmp;
+
+	tmp = command;
 	while(*command)
 		ft_strdel(command++);
-	command = NULL;
+	free(tmp);
+	tmp = NULL;
 }

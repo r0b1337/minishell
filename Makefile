@@ -19,6 +19,7 @@ SRCS= ./srcs/main.c\
 	./srcs/error.c\
 	./srcs/exec.c\
 	./srcs/exit.c\
+	./srcs/signal_handler.c\
 
 OPTIONS= -Wall -Wextra -Werror
 DEBUGFLAG= -g3

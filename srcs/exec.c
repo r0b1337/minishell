@@ -3,12 +3,13 @@
 int	exec_command(char **command)
 {
 	pid_t process;
+	char	*bin;
 
+	if ((bin = get_exec(command[0])) == NULL)
+		return (print_error(command[0]));
 	process = fork();
 	if (process == 0)
-		process = execve(get_exec(command[0]), command, envp);
+		process = execve(bin, command, envp);
 	wait(&process);
-	if (process == -1)
-		return (print_error(command[0]));
 	return (0);
 }

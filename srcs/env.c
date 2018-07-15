@@ -1,12 +1,12 @@
 #include "minishell.h"
 
-int	env_builtin(char **av)
+int	env_builtin(int ac, char **av)
 {
 	int i;
 	char *var;
 
 	i = 0;
-	if (!av[1])
+	if (ac == 1)
 		return (print_env());
 	else
 	{
