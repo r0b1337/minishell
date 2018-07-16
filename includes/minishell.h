@@ -31,8 +31,8 @@ typedef void (*sig_t) (int);
 char	**envp;
 
 void	init_env(char **env);
-int	print_env(void);
-void	env_error(char *arg);
+int	print_env(char **env);
+int	env_error(char *arg);
 int	env_builtin(int ac, char **av);
 void	env_add_var(char **env, char *var);
 int	exit_builtin(int ac, char **av);

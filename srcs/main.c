@@ -73,6 +73,8 @@ char	*get_var_name(char *var)
 {
 	char *ret;
 
+	if (var[0] == '=')
+		return (var);
 	ft_strucpy(&ret, var, '=');
 	return (ret);
 }
@@ -86,6 +88,8 @@ char	*get_exec(char **env, char *path)
 	char *newpath;
 
 	i = 0;
+	if (stat(path, &s) == 0 && (s.st_mode & S_IFREG))
+		return (path);
 	tmp = ft_strsplit(*get_env_var(env, "PATH"), '=');
 	tmp = ft_strsplit(tmp[1], ':');
 	while (tmp[i])
