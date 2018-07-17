@@ -114,7 +114,7 @@ int	is_builtin(int ac, char **av)
 	if(ft_strequ(av[0], "echo"))
 		return (1);
 	if(ft_strequ(av[0], "cd"))
-		return (1);
+		return (cd_builtin(ac, av));
 	if(ft_strequ(av[0], "setenv"))
 		return (1);
 	if(ft_strequ(av[0], "unsetenv"))

@@ -17,7 +17,7 @@ int	env_builtin(int ac, char **av)
 		while (av[++i])
 		{
 			if (ft_strchr(av[i], '='))
-				env_add_var(tmpenv, av[i]);
+				replace_var(tmpenv, av[i]);
 			else if ((var = get_env_var(tmpenv, av[i])) != NULL)
 				ft_putendl(*var);
 			else if (get_exec(tmpenv, av[i]) != NULL)
@@ -55,7 +55,7 @@ int	env_error(char *arg)
 	return (1);
 }
 
-void	env_add_var(char **env, char *var)
+void	replace_var(char **env, char *var)
 {
 	int i;
 	char **tmp;
@@ -69,4 +69,24 @@ void	env_add_var(char **env, char *var)
 			i++;
 		env[i] = ft_strdup(var);
 	}
+}
+
+char	*get_var_content(char *var)
+{
+	char **tmpvar;
+	char **tmp;
+
+	if (!(tmpvar = get_env_var(envp, var)))
+		return (NULL);
+	tmp = ft_strsplit(*tmpvar, '=');
+	return (tmp[1]);
+}
+
+void	set_env(char *var, char *content)
+{
+	char **tmpvar;
+
+	if (!(tmpvar = get_env_var(envp, var)))
+		return ;
+	*tmpvar = ft_strjoin(ft_strjoin(var, "="), content);
 }

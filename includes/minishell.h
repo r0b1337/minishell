@@ -26,6 +26,9 @@
 #include "libft.h"
 #include "get_next_line.h"
 
+#define EXIST_ERROR 1
+#define TYPE_ERROR 2
+
 typedef void (*sig_t) (int);
 
 char	**envp;
@@ -34,17 +37,26 @@ void	init_env(char **env);
 int	print_env(char **env);
 int	env_error(char *arg);
 int	env_builtin(int ac, char **av);
-void	env_add_var(char **env, char *var);
+char	*get_var_name(char *var);
+char	**get_env_var(char **env, char *var);
+void	replace_var(char **env, char *var);
+void	set_env(char *var, char *content);
+char	*get_var_content(char *var);
+
 int	exit_builtin(int ac, char **av);
 void	exit_error(int no, char *arg);
-char	**get_env_var(char **env, char *var);
-char	*get_var_name(char *var);
+
 char	*get_exec(char **env, char *path);
+int	exec_command(char **command, char **env);
+void	free_command(char **command);
+
 void	print_prompt(void);
 int	print_error(char *command);
-int	exec_command(char **command, char **env);
+
 int	is_builtin(int ac, char **av);
-void	free_command(char **command);
+
+int	cd_builtin(int ac, char **av);
+
 void	signal_handler(int signo);
 
 #endif
