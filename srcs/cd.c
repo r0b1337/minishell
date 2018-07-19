@@ -5,18 +5,12 @@ static void	change_cwd(char *cwd)
 	char buf[4096];
 
 	if (!cwd)
-	{
 		chdir(get_var_content("HOME"));
-		getcwd(buf, 4096);
-		set_env("OLDPWD", get_var_content("PWD"));
-		set_env("PWD", buf);
-	}
 	else
-	{
 		chdir(cwd);
-		set_env("OLDPWD", get_var_content("PWD"));
-		set_env("PWD", cwd);
-	}
+	getcwd(buf, 4096);
+	set_env("OLDPWD", get_var_content("PWD"));
+	set_env("PWD", buf);
 }
 
 static void	cd_error(int no, char *arg)
@@ -45,38 +39,14 @@ static int	is_dir(char *path)
 	return (0);
 }
 
-static char	*prev_cwd(char *path)
-{
-	char buf[4096];
-	int i;
-
-	i = 0;
-	getcwd(buf, 4096);
-	while (buf[i])
-		i++;
-	while (buf[i - 1] && buf[i - 1] != '/')
-		buf[i -- - 1] = '\0';
-	return (ft_strjoin(buf, &path[3]));
-}
-
 static char	*parse_path(char *path)
 {
 	char *ret;
-	int	i;
 
-	i = 0;
-	if (path[0] == '.' && path[1] != '.')
-		ret = ft_strjoin(get_var_content("PWD"), &path[1]);
-	else if (path[0] == '~')
+	if (path[0] == '~')
 		ret = ft_strjoin(get_var_content("HOME"), &path[1]);
-	else if (path[0] == '.' && path[1] == '.')
-		ret = prev_cwd(path);
 	else
 		ret = ft_strdup(path);
-	while (ret[i])
-		i++;
-	while (ret[i - 1] && ret[i - 1] == '/' && i > 1)
-		ret[i-- - 1] = '\0';
 	return (ret);
 }
 
@@ -89,8 +59,11 @@ int	cd_builtin(int ac, char **av)
 	else
 	{
 		parsed = parse_path(av[1]);
-		if (!ft_strcmp(av[1], "--"))
+		if (!ft_strcmp(av[1], "-"))
+		{
 			change_cwd(get_var_content("OLDPWD"));
+			ft_putendl(get_var_content("PWD"));
+		}
 		else if (access(parsed, F_OK) == -1)
 			cd_error(EXIST_ERROR, av[1]);
 		else if (!is_dir(parsed))

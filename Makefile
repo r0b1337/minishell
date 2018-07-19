@@ -17,6 +17,7 @@ LIBFT= libft/libft.a
 SRCS= ./srcs/main.c\
 	./srcs/env.c\
 	./srcs/cd.c\
+	./srcs/echo.c\
 	./srcs/error.c\
 	./srcs/exec.c\
 	./srcs/exit.c\

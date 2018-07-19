@@ -112,7 +112,7 @@ void	print_prompt(void)
 int	is_builtin(int ac, char **av)
 {
 	if(ft_strequ(av[0], "echo"))
-		return (1);
+		return (echo_builtin(ac, av));
 	if(ft_strequ(av[0], "cd"))
 		return (cd_builtin(ac, av));
 	if(ft_strequ(av[0], "setenv"))
