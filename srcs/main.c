@@ -56,7 +56,7 @@ void	init_env(char **env)
 	return ;
 }
 
-char	**get_env_var(char **env, char *var)
+int	get_env_var(char **env, char *var)
 {
 	int i;
 
@@ -64,9 +64,9 @@ char	**get_env_var(char **env, char *var)
 	while (env[i] && ft_strcmp(get_var_name(env[i]), var) != 0)
 		i++;
 	if(env[i])
-		return (&env[i]);
+		return (i);
 	else
-		return (NULL);
+		return (-1);
 }
 
 char	*get_var_name(char *var)
@@ -92,7 +92,7 @@ char	*get_exec(char **env, char *path)
 	i = 0;
 	if (stat(path, &s) == 0 && (s.st_mode & S_IFREG))
 		return (path);
-	tmp = ft_strsplit(*get_env_var(env, "PATH"), '=');
+	tmp = ft_strsplit(envp[get_env_var(env, "PATH")], '=');
 	tmp = ft_strsplit(tmp[1], ':');
 	while (tmp[i])
 		i++;

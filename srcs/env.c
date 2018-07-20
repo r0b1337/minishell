@@ -18,7 +18,7 @@ int	env_builtin(int ac, char **av)
 		{
 			if (ft_strchr(av[i], '='))
 				replace_var(tmpenv, av[i]);
-			else if ((var = get_env_var(tmpenv, av[i])) != NULL)
+			else if ((var = &tmpenv[get_env_var(tmpenv, av[i])]) != NULL)
 				ft_putendl(*var);
 			else if (get_exec(tmpenv, av[i]) != NULL)
 			{
@@ -44,7 +44,7 @@ int	print_env(char **env)
 	i = -1;
 	while (env[++i])
 		if(ft_strcmp(env[i], "") != 0)
-		ft_putendl(env[i]);
+			ft_putendl(env[i]);
 	return (1);
 }
 
@@ -62,7 +62,7 @@ void	replace_var(char **env, char *var)
 	char **tmp;
 
 	i = 0;
-	if ((tmp = get_env_var(env, get_var_name(var))) != NULL)
+	if ((tmp = &env[get_env_var(env, get_var_name(var))]) != NULL)
 		*tmp = ft_strdup(var);
 	else
 	{
@@ -77,7 +77,7 @@ char	*get_var_content(char *var)
 	char **tmpvar;
 	char **tmp;
 
-	if (!(tmpvar = get_env_var(envp, var)))
+	if (!(tmpvar = &envp[get_env_var(envp, var)]))
 		return (NULL);
 	tmp = ft_strsplit(*tmpvar, '=');
 	return (tmp[1]);
@@ -85,20 +85,39 @@ char	*get_var_content(char *var)
 
 void	set_env(char *var, char *content)
 {
-	char **tmpvar;
 	char *tmp;
 	int  i;
+	int  pos;
 
 	i = 0;
 	tmp = ft_strjoin(ft_strjoin(var, "="), content);
-	if (!(tmpvar = get_env_var(envp, var)))
-	{
-
-		while (envp[i])
-			i++;
-		envp[i] = ft_strdup(tmp);
-	}
+	if ((pos = get_env_var(envp, var)) == -1)
+		add_var(tmp);
 	else
-		*tmpvar = ft_strdup(tmp);
+	{
+		ft_strdel(&envp[pos]);
+		envp[pos] = ft_strdup(tmp);
+	}
 	ft_strdel(&tmp);
+}
+
+void	add_var(char *var)
+{
+	int i;
+	int size;
+	char **new;
+
+	i = 0;
+	size = ft_strlen_tab(envp) + 1;
+	if ((new = (char **)malloc(sizeof(char *) * size + 1)) == NULL)
+		return ;
+	while (i < size - 1)
+	{
+		new[i] = ft_strdup(envp[i]);
+		i++;
+	}
+	new[i] = ft_strdup(var);
+	new[i + 1] = NULL;
+	free_command(envp);
+	envp = new;
 }

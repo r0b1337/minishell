@@ -38,10 +38,11 @@ int	print_env(char **env);
 int	env_error(char *arg);
 int	env_builtin(int ac, char **av);
 char	*get_var_name(char *var);
-char	**get_env_var(char **env, char *var);
+int	get_env_var(char **env, char *var);
 void	replace_var(char **env, char *var);
 void	set_env(char *var, char *content);
 char	*get_var_content(char *var);
+void	add_var(char *var);
 
 int	exit_builtin(int ac, char **av);
 void	exit_error(int no, char *arg);
