@@ -59,6 +59,10 @@ int	cd_builtin(int ac, char **av);
 
 int	echo_builtin(int ac, char **av);
 
+int	setenv_builtin(int ac, char **av);
+
+int	unsetenv_builtin(int ac, char **av);
+
 void	signal_handler(int signo);
 
 #endif

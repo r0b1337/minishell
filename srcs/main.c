@@ -73,6 +73,8 @@ char	*get_var_name(char *var)
 {
 	char *ret;
 
+	if (!var || !*var)
+		return (NULL);	
 	if (var[0] == '=')
 		return (var);
 	ft_strucpy(&ret, var, '=');
@@ -116,9 +118,9 @@ int	is_builtin(int ac, char **av)
 	if(ft_strequ(av[0], "cd"))
 		return (cd_builtin(ac, av));
 	if(ft_strequ(av[0], "setenv"))
-		return (1);
+		return (setenv_builtin(ac, av));
 	if(ft_strequ(av[0], "unsetenv"))
-		return (1);
+		return (unsetenv_builtin(ac, av));
 	if(ft_strequ(av[0], "env"))
 		return (env_builtin(ac, av));
 	if(ft_strequ(av[0], "exit"))

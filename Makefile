@@ -16,6 +16,8 @@ INCLUDES= -I ./includes -I ./libft/includes/
 LIBFT= libft/libft.a
 SRCS= ./srcs/main.c\
 	./srcs/env.c\
+	./srcs/setenv.c\
+	./srcs/unsetenv.c\
 	./srcs/cd.c\
 	./srcs/echo.c\
 	./srcs/error.c\

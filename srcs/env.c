@@ -41,9 +41,10 @@ int	print_env(char **env)
 {
 	int i;
 
-	i = 0;
-	while (env[i])
-		ft_putendl(env[i++]);
+	i = -1;
+	while (env[++i])
+		if(ft_strcmp(env[i], "") != 0)
+		ft_putendl(env[i]);
 	return (1);
 }
 
@@ -85,8 +86,19 @@ char	*get_var_content(char *var)
 void	set_env(char *var, char *content)
 {
 	char **tmpvar;
+	char *tmp;
+	int  i;
 
+	i = 0;
+	tmp = ft_strjoin(ft_strjoin(var, "="), content);
 	if (!(tmpvar = get_env_var(envp, var)))
-		return ;
-	*tmpvar = ft_strjoin(ft_strjoin(var, "="), content);
+	{
+
+		while (envp[i])
+			i++;
+		envp[i] = ft_strdup(tmp);
+	}
+	else
+		*tmpvar = ft_strdup(tmp);
+	ft_strdel(&tmp);
 }
