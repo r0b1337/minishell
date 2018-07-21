@@ -3,7 +3,7 @@
 int	env_builtin(int ac, char **av)
 {
 	int i;
-	char **var;
+	int pos;
 	int err;
 	char **tmpenv;
 
@@ -18,8 +18,8 @@ int	env_builtin(int ac, char **av)
 		{
 			if (ft_strchr(av[i], '='))
 				replace_var(tmpenv, av[i]);
-			else if ((var = &tmpenv[get_env_var(tmpenv, av[i])]) != NULL)
-				ft_putendl(*var);
+			else if ((pos = get_env_var(tmpenv, av[i])) != -1)
+				ft_putendl(tmpenv[pos]);
 			else if (get_exec(tmpenv, av[i]) != NULL)
 			{
 				err = exec_command(&av[i], tmpenv);
@@ -27,6 +27,8 @@ int	env_builtin(int ac, char **av)
 			}
 			else
 				err = env_error(av[i]);
+			if (pos != -1)
+				err = 1;
 		}
 		if (err == 0)
 			while (*tmpenv)

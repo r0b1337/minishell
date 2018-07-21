@@ -41,46 +41,6 @@ int		main(int ac, char **av, char **env)
 	return (0);
 }
 
-void	init_env(char **env)
-{
-	int i;
-
-	i = 0;
-	while(env[i])
-		i++;
-	envp = (char **)malloc(sizeof(char *) * (i + 1));
-	envp[i] = NULL;
-	i = -1;
-	while (env[++i])
-		envp[i] = ft_strdup(env[i]);
-	return ;
-}
-
-int	get_env_var(char **env, char *var)
-{
-	int i;
-
-	i = 0;
-	while (env[i] && ft_strcmp(get_var_name(env[i]), var) != 0)
-		i++;
-	if(env[i])
-		return (i);
-	else
-		return (-1);
-}
-
-char	*get_var_name(char *var)
-{
-	char *ret;
-
-	if (!var || !*var)
-		return (NULL);	
-	if (var[0] == '=')
-		return (var);
-	ft_strucpy(&ret, var, '=');
-	return (ret);
-}
-
 char	*get_exec(char **env, char *path)
 {
 	char **tmp;
@@ -92,7 +52,8 @@ char	*get_exec(char **env, char *path)
 	i = 0;
 	if (stat(path, &s) == 0 && (s.st_mode & S_IFREG))
 		return (path);
-	tmp = ft_strsplit(envp[get_env_var(env, "PATH")], '=');
+	if ((tmp = ft_strsplit(envp[get_env_var(env, "PATH")], '=')) == NULL)
+		return (NULL);
 	tmp = ft_strsplit(tmp[1], ':');
 	while (tmp[i])
 		i++;

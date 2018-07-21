@@ -12,6 +12,8 @@ static void	unset_env(char *var)
 	j = 0;
 	size = ft_strlen_tab(envp) - 1;
 	pos = get_env_var(envp, var);
+	if (pos == -1)
+		return ;
 	if ((new = (char **)malloc(sizeof(char *) * size + 1)) == NULL)
 		return ;
 	while (envp[j])
