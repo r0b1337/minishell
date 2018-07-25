@@ -18,10 +18,16 @@ void	init_env(char **env)
 int	get_env_var(char **env, char *var)
 {
 	int i;
+	char *current;
 
 	i = 0;
-	while (env[i] && ft_strcmp(get_var_name(env[i]), var) != 0)
+	while (env[i] && ft_strcmp((current = get_var_name(env[i])), var) != 0)
+	{
+		ft_strdel(&current);
 		i++;
+	}
+	if (env[i])
+		ft_strdel(&current);
 	if(env[i])
 		return (i);
 	else

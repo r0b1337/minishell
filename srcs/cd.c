@@ -3,13 +3,18 @@
 static void	change_cwd(char *cwd)
 {
 	char buf[4096];
+	char *content;
 
 	if (!cwd)
-		chdir(get_var_content("HOME"));
+	{
+		chdir((content = get_var_content("HOME")));
+		ft_strdel(&content);
+	}
 	else
 		chdir(cwd);
 	getcwd(buf, 4096);
-	set_env("OLDPWD", get_var_content("PWD"));
+	set_env("OLDPWD", (content = get_var_content("PWD")));
+	ft_strdel(&content);
 	set_env("PWD", buf);
 }
 
@@ -42,9 +47,13 @@ static int	is_dir(char *path)
 static char	*parse_path(char *path)
 {
 	char *ret;
+	char *tmp;
 
 	if (path[0] == '~')
-		ret = ft_strjoin(get_var_content("HOME"), &path[1]);
+	{
+		ret = ft_strjoin((tmp = get_var_content("HOME")), &path[1]);
+		ft_strdel(&tmp);
+	}
 	else
 		ret = ft_strdup(path);
 	return (ret);
@@ -53,6 +62,7 @@ static char	*parse_path(char *path)
 int	cd_builtin(int ac, char **av)
 {
 	char	*parsed;
+	char	*tmp;
 
 	if (ac == 1)
 		change_cwd(NULL);
@@ -61,8 +71,10 @@ int	cd_builtin(int ac, char **av)
 		parsed = parse_path(av[1]);
 		if (!ft_strcmp(av[1], "-"))
 		{
-			change_cwd(get_var_content("OLDPWD"));
-			ft_putendl(get_var_content("PWD"));
+			change_cwd((tmp = get_var_content("OLDPWD")));
+			ft_strdel(&tmp);
+			ft_putendl((tmp = get_var_content("PWD")));
+			ft_strdel(&tmp);
 		}
 		else if (access(parsed, F_OK) == -1)
 			cd_error(EXIST_ERROR, av[1]);

@@ -11,5 +11,6 @@ int	exec_command(char **command, char **env)
 	if (process == 0)
 		process = execve(bin, command, env);
 	wait(&process);
+	ft_strdel(&bin);
 	return (1);
 }

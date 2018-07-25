@@ -23,7 +23,7 @@ int	ft_strucpy(char **dest, char *tocpy, char c)
 			break ;
 		i++;
 	}
-	if (!(*dest = ft_strnew(i + 1)))
+	if ((*dest = ft_strnew(i + 1)) == NULL)
 		return (-1);
 	ft_strncpy(*dest, tocpy, i);
 	return (i);

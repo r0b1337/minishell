@@ -23,16 +23,18 @@ int		main(int ac, char **av, char **env)
 	{
 		print_prompt();
 		signal(SIGINT, signal_handler);
-		if (get_next_line(STDIN_FILENO, &line) > 0 && !ft_strequ(line, ""))
+		if (get_next_line(STDIN_FILENO, &line) != -1 && !ft_strequ(line, ""))
 		{
 			command = ft_strsplit(line, ' ');
 			if (is_builtin(ft_strlen_tab(command), command) >= 0)
-				free_command(command);
-			else
 			{
-				exec_command(command, envp);
+				ft_strdel(&line);
 				free_command(command);
+				continue ;
 			}
+			else
+				exec_command(command, envp);
+			free_command(command);
 		}
 		ft_strdel(&line);
 	}
@@ -41,9 +43,21 @@ int		main(int ac, char **av, char **env)
 	return (0);
 }
 
+static char	*path_to_bin(char *path, char *bin)
+{
+	char *ret;
+	char *tmp;
+
+	tmp = ft_strjoin(path, "/");
+	ret = ft_strjoin(tmp, bin);
+	ft_strdel(&tmp);
+	return (ret);
+}
+
 char	*get_exec(char **env, char *path)
 {
 	char **tmp;
+	char **tmp2;
 	struct stat s;
 	int i;
 	int size;
@@ -52,16 +66,22 @@ char	*get_exec(char **env, char *path)
 	i = 0;
 	if (stat(path, &s) == 0 && (s.st_mode & S_IFREG))
 		return (path);
-	if ((tmp = ft_strsplit(envp[get_env_var(env, "PATH")], '=')) == NULL)
+	if ((tmp2 = ft_strsplit(env[get_env_var(env, "PATH")], '=')) == NULL)
 		return (NULL);
-	tmp = ft_strsplit(tmp[1], ':');
+	if ((tmp = ft_strsplit(tmp2[1], ':')) == NULL)
+		return (NULL);
 	while (tmp[i])
 		i++;
 	size = i;
 	i = 0;
-	while (tmp[i] && (stat((newpath = ft_strjoin(ft_strjoin(tmp[i], "/"), path)), &s) == -1 
+	while (tmp[i] && ((stat((newpath = path_to_bin(tmp[i], path)), &s)) == -1
 				|| !(s.st_mode & S_IFREG)))
+	{
 		i++;
+		ft_strdel(&newpath);
+	}
+	free_command(tmp);
+	free_command(tmp2);
 	if (i == size)
 		return (NULL);
 	return (newpath);
@@ -91,6 +111,11 @@ int	is_builtin(int ac, char **av)
 
 void	free_command(char **command)
 {
-	while(*command)
-		ft_strdel(command++);
+	int i;
+
+	i = 0;
+	while(command[i])
+		ft_strdel(&command[i++]);
+	free(command);
+	command = NULL;
 }

@@ -42,7 +42,7 @@ int	get_env_var(char **env, char *var);
 void	replace_var(char **env, char *var);
 void	set_env(char *var, char *content);
 char	*get_var_content(char *var);
-void	add_var(char *var);
+char	**add_var(char **env, char *var);
 
 int	exit_builtin(int ac, char **av);
 void	exit_error(int no, char *arg);
