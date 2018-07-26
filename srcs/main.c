@@ -69,7 +69,10 @@ char	*get_exec(char **env, char *path)
 	if ((tmp2 = ft_strsplit(env[get_env_var(env, "PATH")], '=')) == NULL)
 		return (NULL);
 	if ((tmp = ft_strsplit(tmp2[1], ':')) == NULL)
+	{
+		free_command(tmp2);
 		return (NULL);
+	}
 	while (tmp[i])
 		i++;
 	size = i;

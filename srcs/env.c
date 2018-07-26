@@ -18,7 +18,7 @@ int	env_builtin(int ac, char **av)
 		while (av[++i])
 		{
 			if (ft_strchr(av[i], '='))
-				replace_var(tmpenv, av[i]);
+				tmpenv = replace_var(tmpenv, av[i]);
 			else if ((pos = get_env_var(tmpenv, av[i])) != -1)
 				ft_putendl(tmpenv[pos]);
 			else if ((tmp = get_exec(tmpenv, av[i])) != NULL)
@@ -58,7 +58,7 @@ int	env_error(char *arg)
 	return (1);
 }
 
-void	replace_var(char **env, char *var)
+char	**replace_var(char **env, char *var)
 {
 	int i;
 	int pos;
@@ -74,7 +74,7 @@ void	replace_var(char **env, char *var)
 	else
 		env = add_var(env, var);
 	free_command(tmp);
-	return ;
+	return (env);
 }
 
 char	*get_var_content(char *var)
