@@ -1,5 +1,9 @@
 #include "minishell.h"
 
+/*
+**	env_builtin -	clone of env utility
+*/
+
 int	env_builtin(int ac, char **av)
 {
 	int i;
@@ -39,6 +43,10 @@ int	env_builtin(int ac, char **av)
 	return (1);
 }
 
+/*
+**	print_env - printing environnement
+*/
+
 int	print_env(char **env)
 {
 	int i;
@@ -50,6 +58,10 @@ int	print_env(char **env)
 	return (1);
 }
 
+/*
+**	env_error -	prints env error
+*/
+
 int	env_error(char *arg)
 {
 	ft_putstr_fd("env: ", STDERR_FILENO);
@@ -58,24 +70,10 @@ int	env_error(char *arg)
 	return (1);
 }
 
-char	**replace_var(char **env, char *var)
-{
-	int i;
-	int pos;
-	char **tmp;
-
-	i = 0;
-	tmp = ft_strsplit(var, '=');
-	if ((pos = get_env_var(env, tmp[0])) != -1)
-	{
-		ft_strdel(&env[pos]);
-		env[pos] = ft_strdup(var);
-	}
-	else
-		env = add_var(env, var);
-	free_command(tmp);
-	return (env);
-}
+/*
+**	get_var_content -	get content of a var
+**				in env
+*/
 
 char	*get_var_content(char *var)
 {
@@ -91,26 +89,9 @@ char	*get_var_content(char *var)
 	return (ret);
 }
 
-void	set_env(char *var, char *content)
-{
-	char *tmp;
-	char *tmp2;
-	int  i;
-	int  pos;
-
-	i = 0;
-	tmp2 = ft_strjoin(var, "=");
-	tmp = ft_strjoin(tmp2, content);
-	if ((pos = get_env_var(envp, var)) == -1)
-		envp = add_var(envp, tmp);
-	else
-	{
-		ft_strdel(&envp[pos]);
-		envp[pos] = ft_strdup(tmp);
-	}
-	ft_strdel(&tmp);
-	ft_strdel(&tmp2);
-}
+/*
+**	add_var -	add var in env or replace one
+*/
 
 char	**add_var(char **env, char *var)
 {

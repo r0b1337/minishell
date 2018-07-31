@@ -1,5 +1,9 @@
 #include "minishell.h"
 
+/*
+**		change_cwd -	updating CWD
+*/
+
 static void	change_cwd(char *cwd)
 {
 	char buf[4096];
@@ -18,6 +22,10 @@ static void	change_cwd(char *cwd)
 	set_env("PWD", buf);
 }
 
+/*
+**		cd_error -	prints cd errors
+*/
+
 static void	cd_error(int no, char *arg)
 {
 	if (no == EXIST_ERROR)
@@ -34,6 +42,11 @@ static void	cd_error(int no, char *arg)
 	}
 }
 
+/*
+**		is_dir -	returns 1 if path is a dir
+**				returns 0 if its not
+*/
+
 static int	is_dir(char *path)
 {
 	struct stat s;
@@ -43,6 +56,10 @@ static int	is_dir(char *path)
 		return (1);
 	return (0);
 }
+
+/*
+**		parse_path -	handling '~' in cd
+*/
 
 static char	*parse_path(char *path)
 {
@@ -58,6 +75,10 @@ static char	*parse_path(char *path)
 		ret = ft_strdup(path);
 	return (ret);
 }
+
+/*
+**	cd_builtin -	clone of cd utility
+*/
 
 int	cd_builtin(int ac, char **av)
 {

@@ -1,5 +1,9 @@
 #include "minishell.h"
 
+/*
+**	exit_builtin -	built-in clone of exit utility
+*/
+
 int	exit_builtin(int ac, char **command)
 {
 	int i;
@@ -26,6 +30,10 @@ int	exit_builtin(int ac, char **command)
 	}
 	return (1337);
 }
+
+/*
+**	exit_error -	exit error handling
+*/
 
 void	exit_error(int no, char *arg)
 {

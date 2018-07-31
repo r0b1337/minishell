@@ -1,5 +1,9 @@
 #include "minishell.h"
 
+/*
+**	echo_builtin -	clone of echo utility
+*/
+
 int	echo_builtin(int ac, char **av)
 {
 	int i;

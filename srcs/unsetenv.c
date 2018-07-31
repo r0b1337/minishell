@@ -1,5 +1,10 @@
 #include "minishell.h"
 
+/*
+**	unset_env -	re-mallocing an updated env
+**			without var
+*/
+
 static void	unset_env(char *var)
 {
 	int i;
@@ -26,6 +31,10 @@ static void	unset_env(char *var)
 	free_command(envp);
 	envp = new;
 }
+
+/*
+**	unsetenv_builtin -	clone of unsetenv utility
+*/
 
 int	unsetenv_builtin(int ac, char **av)
 {

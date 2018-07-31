@@ -1,5 +1,10 @@
 #include "minishell.h"
 
+/*
+**	signal_handler -	printing prompt if SIGINT
+**				happens
+*/
+
 void	signal_handler(int signo)
 {
 	if (signo == SIGINT)

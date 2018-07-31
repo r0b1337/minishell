@@ -1,5 +1,9 @@
 #include "minishell.h"
 
+/*
+**	init_env -	mallocing a copy of char **env
+*/
+
 void	init_env(char **env)
 {
 	int i;
@@ -14,6 +18,11 @@ void	init_env(char **env)
 		envp[i] = ft_strdup(env[i]);
 	return ;
 }
+
+/*
+**	get_env_var -	returns pos of *var in **env
+**			or -1 if it doesn't exist
+*/
 
 int	get_env_var(char **env, char *var)
 {
@@ -33,6 +42,11 @@ int	get_env_var(char **env, char *var)
 	else
 		return (-1);
 }
+
+/*
+**	get_var_name -	getting var name from format
+**			'FOO=BAR'
+*/
 
 char	*get_var_name(char *var)
 {
