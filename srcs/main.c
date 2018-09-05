@@ -6,7 +6,7 @@
 /*   By: rdurst <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/05 03:24:43 by rdurst            #+#    #+#             */
-/*   Updated: 2018/07/05 03:25:10 by rdurst           ###   ########.fr       */
+/*   Updated: 2018/09/05 19:26:12 by rdurst           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,12 @@ int		main(int ac, char **av, char **env)
 
 void	print_prompt(void)
 {
-	ft_putcolor(GREEN, "$> ");
+	static int color = 0;
+
+	if (color++ % 2)
+		ft_putcolor(BGREEN, "$> ");
+	else
+		ft_putcolor(BBLUE, "$> ");
 }
 
 /*
