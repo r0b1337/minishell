@@ -1,16 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rdurst <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/09/05 19:45:20 by rdurst            #+#    #+#             */
+/*   Updated: 2018/09/05 19:45:21 by rdurst           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
 **	env_builtin -	clone of env utility
 */
 
-int	env_builtin(int ac, char **av)
+int		env_builtin(int ac, char **av)
 {
-	int i;
-	int pos;
-	int err;
-	char *tmp;
-	char **tmpenv;
+	int		i;
+	int		pos;
+	int		err;
+	char	*tmp;
+	char	**tmpenv;
 
 	i = 0;
 	err = 0;
@@ -18,7 +30,7 @@ int	env_builtin(int ac, char **av)
 		return (print_env(envp));
 	else
 	{
-	tmpenv = ft_tabcpy(envp);
+		tmpenv = ft_tabcpy(envp);
 		while (av[++i])
 		{
 			if (ft_strchr(av[i], '='))
@@ -38,7 +50,7 @@ int	env_builtin(int ac, char **av)
 		}
 		if (err == 0)
 			print_env(tmpenv);
-	free_command(tmpenv);
+		free_command(tmpenv);
 	}
 	return (1);
 }
@@ -47,13 +59,13 @@ int	env_builtin(int ac, char **av)
 **	print_env - printing environnement
 */
 
-int	print_env(char **env)
+int		print_env(char **env)
 {
 	int i;
 
 	i = -1;
 	while (env[++i])
-		if(ft_strcmp(env[i], "") != 0)
+		if (ft_strcmp(env[i], "") != 0)
 			ft_putendl(env[i]);
 	return (1);
 }
@@ -62,7 +74,7 @@ int	print_env(char **env)
 **	env_error -	prints env error
 */
 
-int	env_error(char *arg)
+int		env_error(char *arg)
 {
 	ft_putstr_fd("env: ", STDERR_FILENO);
 	ft_putstr_fd(arg, STDERR_FILENO);
@@ -77,9 +89,9 @@ int	env_error(char *arg)
 
 char	*get_var_content(char *var)
 {
-	int  pos;
-	char **tmp;
-	char *ret;
+	int		pos;
+	char	**tmp;
+	char	*ret;
 
 	if ((pos = get_env_var(envp, var)) == -1)
 		return (NULL);
@@ -95,9 +107,9 @@ char	*get_var_content(char *var)
 
 char	**add_var(char **env, char *var)
 {
-	int i;
-	int size;
-	char **new;
+	int		i;
+	int		size;
+	char	**new;
 
 	i = 0;
 	size = ft_strlen_tab(env) + 1;

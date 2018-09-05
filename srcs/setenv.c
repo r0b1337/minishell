@@ -1,16 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   setenv.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rdurst <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/09/05 19:35:56 by rdurst            #+#    #+#             */
+/*   Updated: 2018/09/05 19:37:22 by rdurst           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
-**	set_env -	like add_var() but with format
+**		set_env -	like add_var() but with format
 **			setenv FOO BAR
 */
 
 void	set_env(char *var, char *content)
 {
-	char *tmp;
-	char *tmp2;
-	int  i;
-	int  pos;
+	char	*tmp;
+	char	*tmp2;
+	int		i;
+	int		pos;
 
 	i = 0;
 	tmp2 = ft_strjoin(var, "=");
@@ -27,15 +39,15 @@ void	set_env(char *var, char *content)
 }
 
 /*
-**	replace_var -	replace an existing var's content
+**		replace_var -	replace an existing var's content
 **			or creating a new var with content
 */
 
 char	**replace_var(char **env, char *var)
 {
-	int i;
-	int pos;
-	char **tmp;
+	int		i;
+	int		pos;
+	char	**tmp;
 
 	i = 0;
 	tmp = ft_strsplit(var, '=');
@@ -51,10 +63,10 @@ char	**replace_var(char **env, char *var)
 }
 
 /*
-**	setenv_builtin -	clone of setenv utility
+**		setenv_builtin -	clone of setenv utility
 */
 
-int	setenv_builtin(int ac, char **av)
+int		setenv_builtin(int ac, char **av)
 {
 	if (ac == 1)
 		print_env(envp);

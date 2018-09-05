@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unsetenv.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rdurst <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/09/05 19:41:54 by rdurst            #+#    #+#             */
+/*   Updated: 2018/09/05 19:41:55 by rdurst           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
@@ -7,11 +19,11 @@
 
 static void	unset_env(char *var)
 {
-	int i;
-	int j;
-	int size;
-	char **new;
-	int pos;
+	int		i;
+	int		j;
+	int		size;
+	char	**new;
+	int		pos;
 
 	i = 0;
 	j = 0;
@@ -36,7 +48,7 @@ static void	unset_env(char *var)
 **	unsetenv_builtin -	clone of unsetenv utility
 */
 
-int	unsetenv_builtin(int ac, char **av)
+int			unsetenv_builtin(int ac, char **av)
 {
 	int i;
 
@@ -44,7 +56,7 @@ int	unsetenv_builtin(int ac, char **av)
 	if (ac == 1)
 		ft_putstr_fd("unsetenv: not enough arguments\n", STDERR_FILENO);
 	else
-		while(av[i])
+		while (av[i])
 			unset_env(av[i++]);
 	return (1);
 }

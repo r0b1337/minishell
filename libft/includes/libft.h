@@ -6,7 +6,7 @@
 /*   By: rdurst <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 12:31:11 by rdurst            #+#    #+#             */
-/*   Updated: 2018/09/05 19:25:57 by rdurst           ###   ########.fr       */
+/*   Updated: 2018/09/05 19:33:58 by rdurst           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void			ft_putchar(char c);
 void			ft_putstr(char const *str);
 void			ft_putstr_tab(char **tab);
 size_t			ft_strlen(char const *str);
-int			ft_strlen_tab(char **tab);
+int				ft_strlen_tab(char **tab);
 int				ft_strcmp(char const *s1, char const *s2);
 int				ft_atoi(char const *str);
 char			*ft_strdup(char const *src);
@@ -54,7 +54,7 @@ int				ft_isdigit(int c);
 int				ft_isalnum(int c);
 int				ft_isprint(int c);
 int				ft_isascii(int c);
-char				**ft_tabcpy(char **tab);
+char			**ft_tabcpy(char **tab);
 char			*ft_strcpy(char *dest, char const *src);
 char			*ft_strncpy(char *dest, char const *src, size_t n);
 int				ft_strucpy(char **dest, char *src, char c);

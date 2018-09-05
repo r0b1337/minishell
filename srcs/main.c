@@ -6,7 +6,7 @@
 /*   By: rdurst <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/05 03:24:43 by rdurst            #+#    #+#             */
-/*   Updated: 2018/09/05 19:26:12 by rdurst           ###   ########.fr       */
+/*   Updated: 2018/09/05 19:47:33 by rdurst           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		main(int ac, char **av, char **env)
 
 	line = NULL;
 	init_env(env);
-	while(1)
+	while (1)
 	{
 		print_prompt();
 		signal(SIGINT, signal_handler);
@@ -66,19 +66,19 @@ void	print_prompt(void)
 **			if the command is a built-in
 */
 
-int	is_builtin(int ac, char **av)
+int		is_builtin(int ac, char **av)
 {
-	if(ft_strequ(av[0], "echo"))
+	if (ft_strequ(av[0], "echo"))
 		return (echo_builtin(ac, av));
-	if(ft_strequ(av[0], "cd"))
+	if (ft_strequ(av[0], "cd"))
 		return (cd_builtin(ac, av));
-	if(ft_strequ(av[0], "setenv"))
+	if (ft_strequ(av[0], "setenv"))
 		return (setenv_builtin(ac, av));
-	if(ft_strequ(av[0], "unsetenv"))
+	if (ft_strequ(av[0], "unsetenv"))
 		return (unsetenv_builtin(ac, av));
-	if(ft_strequ(av[0], "env"))
+	if (ft_strequ(av[0], "env"))
 		return (env_builtin(ac, av));
-	if(ft_strequ(av[0], "exit"))
+	if (ft_strequ(av[0], "exit"))
 		return (exit_builtin(ac, av));
 	return (-1);
 }
@@ -92,7 +92,7 @@ void	free_command(char **command)
 	int i;
 
 	i = 0;
-	while(command[i])
+	while (command[i])
 		ft_strdel(&command[i++]);
 	free(command);
 	command = NULL;

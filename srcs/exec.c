@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rdurst <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/09/05 19:38:15 by rdurst            #+#    #+#             */
+/*   Updated: 2018/09/05 19:47:17 by rdurst           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
@@ -20,9 +32,9 @@ static char	*path_to_bin(char *path, char *bin)
 **	exec_command -	forking and executing a process
 */
 
-int	exec_command(char **command, char **env)
+int			exec_command(char **command, char **env)
 {
-	pid_t process;
+	pid_t	process;
 	char	*bin;
 
 	if ((bin = get_exec(env, command[0])) == NULL)
@@ -40,14 +52,14 @@ int	exec_command(char **command, char **env)
 **			or return NULL
 */
 
-char	*get_exec(char **env, char *path)
+char		*get_exec(char **env, char *path)
 {
-	char **tmp;
-	char **tmp2;
-	struct stat s;
-	int i;
-	int size;
-	char *newpath;
+	char		**tmp;
+	char		**tmp2;
+	struct stat	s;
+	int			i;
+	int			size;
+	char		*newpath;
 
 	i = 0;
 	if (stat(path, &s) == 0 && (s.st_mode & S_IFREG))

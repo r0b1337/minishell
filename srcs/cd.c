@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rdurst <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/09/05 19:53:10 by rdurst            #+#    #+#             */
+/*   Updated: 2018/09/05 19:54:41 by rdurst           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
@@ -68,7 +80,8 @@ static char	*parse_path(char *path)
 
 	if (path[0] == '~')
 	{
-		ret = ft_strjoin((tmp = get_var_content("HOME")), &path[1]);
+		tmp = get_var_content("HOME");
+		ret = ft_strjoin(tmp, &path[1]);
 		ft_strdel(&tmp);
 	}
 	else
@@ -80,7 +93,7 @@ static char	*parse_path(char *path)
 **	cd_builtin -	clone of cd utility
 */
 
-int	cd_builtin(int ac, char **av)
+int			cd_builtin(int ac, char **av)
 {
 	char	*parsed;
 	char	*tmp;
