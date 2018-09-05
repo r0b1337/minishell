@@ -6,7 +6,7 @@
 /*   By: rdurst <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/05 03:17:58 by rdurst            #+#    #+#             */
-/*   Updated: 2018/07/05 03:24:37 by rdurst           ###   ########.fr       */
+/*   Updated: 2018/09/05 21:02:25 by rdurst           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ char	**add_var(char **env, char *var);
 int	exit_builtin(int ac, char **av);
 void	exit_error(int no, char *arg);
 
+char	**get_paths(char **env);
 char	*get_exec(char **env, char *path);
 int	exec_command(char **command, char **env);
 void	free_command(char **command);

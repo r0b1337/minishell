@@ -6,7 +6,7 @@
 /*   By: rdurst <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 19:38:15 by rdurst            #+#    #+#             */
-/*   Updated: 2018/09/05 19:47:17 by rdurst           ###   ########.fr       */
+/*   Updated: 2018/09/05 21:14:40 by rdurst           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,30 @@ int			exec_command(char **command, char **env)
 }
 
 /*
+**	get_paths - return content of the env var 'PATH'
+**				or NULL if there is no
+*/
+
+char		**get_paths(char **env)
+{
+	char **tmp;
+	char **ret;
+
+	if ((tmp = ft_strsplit(env[get_env_var(env, "PATH")], '=')) == NULL)
+		return (NULL);
+	if ((ret = ft_strsplit(tmp[1], ':')) == NULL)
+	{
+		free_command(tmp);
+		return (NULL);
+	}
+	else
+	{
+		free_command(tmp);
+		return (ret);
+	}
+}
+
+/*
 **	get_exec -	searching in env for a binary
 **			or return NULL
 */
@@ -55,7 +79,6 @@ int			exec_command(char **command, char **env)
 char		*get_exec(char **env, char *path)
 {
 	char		**tmp;
-	char		**tmp2;
 	struct stat	s;
 	int			i;
 	int			size;
@@ -64,25 +87,16 @@ char		*get_exec(char **env, char *path)
 	i = 0;
 	if (stat(path, &s) == 0 && (s.st_mode & S_IFREG))
 		return (path);
-	if ((tmp2 = ft_strsplit(env[get_env_var(env, "PATH")], '=')) == NULL)
+	if ((tmp = get_paths(env)) == NULL)
 		return (NULL);
-	if ((tmp = ft_strsplit(tmp2[1], ':')) == NULL)
-	{
-		free_command(tmp2);
-		return (NULL);
-	}
 	while (tmp[i])
 		i++;
 	size = i;
-	i = 0;
-	while (tmp[i] && ((stat((newpath = path_to_bin(tmp[i], path)), &s)) == -1
+	i = -1;
+	while (tmp[++i] && ((stat((newpath = path_to_bin(tmp[i], path)), &s)) == -1
 				|| !(s.st_mode & S_IFREG)))
-	{
-		i++;
 		ft_strdel(&newpath);
-	}
 	free_command(tmp);
-	free_command(tmp2);
 	if (i == size)
 		return (NULL);
 	return (newpath);
