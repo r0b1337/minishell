@@ -6,7 +6,7 @@
 /*   By: rdurst <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 19:49:20 by rdurst            #+#    #+#             */
-/*   Updated: 2018/09/05 19:49:22 by rdurst           ###   ########.fr       */
+/*   Updated: 2018/09/06 17:01:19 by rdurst           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	init_env(char **env)
 	i = 0;
 	while (env[i])
 		i++;
-	envp = (char **)malloc(sizeof(char *) * (i + 1));
-	envp[i] = NULL;
+	g_envp = (char **)malloc(sizeof(char *) * (i + 1));
+	g_envp[i] = NULL;
 	i = -1;
 	while (env[++i])
-		envp[i] = ft_strdup(env[i]);
+		g_envp[i] = ft_strdup(env[i]);
 	return ;
 }
 

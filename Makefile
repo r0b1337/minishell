@@ -6,7 +6,7 @@
 #    By: rdurst <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/14 16:16:42 by rdurst            #+#    #+#              #
-#    Updated: 2018/09/05 21:15:47 by rdurst           ###   ########.fr        #
+#    Updated: 2018/09/06 16:22:31 by rdurst           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS= ./srcs/main.c\
 	./srcs/error.c\
 	./srcs/exec.c\
 	./srcs/exit.c\
+	./srcs/helper.c\
 	./srcs/signal_handler.c\
 
 OPTIONS= -Wall -Wextra -Werror

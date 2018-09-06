@@ -6,7 +6,7 @@
 /*   By: rdurst <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 19:41:54 by rdurst            #+#    #+#             */
-/*   Updated: 2018/09/05 19:41:55 by rdurst           ###   ########.fr       */
+/*   Updated: 2018/09/06 16:59:11 by rdurst           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,21 @@ static void	unset_env(char *var)
 
 	i = 0;
 	j = 0;
-	size = ft_strlen_tab(envp) - 1;
-	pos = get_env_var(envp, var);
+	size = ft_strlen_tab(g_envp) - 1;
+	pos = get_env_var(g_envp, var);
 	if (pos == -1)
 		return ;
 	if ((new = (char **)malloc(sizeof(char *) * size + 1)) == NULL)
 		return ;
-	while (envp[j])
+	while (g_envp[j])
 	{
-		if (ft_strcmp(envp[j], envp[pos]) != 0)
-			new[i++] = ft_strdup(envp[j]);
+		if (ft_strcmp(g_envp[j], g_envp[pos]) != 0)
+			new[i++] = ft_strdup(g_envp[j]);
 		j++;
 	}
 	new[i] = NULL;
-	free_command(envp);
-	envp = new;
+	free_command(g_envp);
+	g_envp = new;
 }
 
 /*

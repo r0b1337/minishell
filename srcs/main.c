@@ -6,7 +6,7 @@
 /*   By: rdurst <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/05 03:24:43 by rdurst            #+#    #+#             */
-/*   Updated: 2018/09/05 20:43:58 by rdurst           ###   ########.fr       */
+/*   Updated: 2018/09/06 16:56:26 by rdurst           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,33 +18,40 @@
 
 int		main(int ac, char **av, char **env)
 {
-	char *line;
-	char **command;
-
-	line = NULL;
 	init_env(env);
 	while (1)
-	{
-		print_prompt();
-		signal(SIGINT, signal_handler);
-		if (get_next_line(STDIN_FILENO, &line) != -1 && !ft_strequ(line, ""))
-		{
-			command = ft_strsplit(line, ' ');
-			if (is_builtin(ft_strlen_tab(command), command) >= 0)
-			{
-				ft_strdel(&line);
-				free_command(command);
-				continue ;
-			}
-			else
-				exec_command(command, envp);
-			free_command(command);
-		}
-		ft_strdel(&line);
-	}
+		minishell();
 	(void)ac;
 	(void)av;
 	return (0);
+}
+
+/*
+**	minishell - uses the input to make the magic begins
+*/
+
+void	minishell(void)
+{
+	char	**command;
+	char	*line;
+
+	print_prompt();
+	line = NULL;
+	signal(SIGINT, signal_handler);
+	if (get_next_line(STDIN_FILENO, &line) != -1 && !ft_strequ(line, ""))
+	{
+		command = ft_strsplit(line, ' ');
+		if (is_builtin(ft_strlen_tab(command), command) >= 0)
+		{
+			ft_strdel(&line);
+			free_command(command);
+			return ;
+		}
+		else
+			exec_command(command, g_envp);
+		free_command(command);
+	}
+	ft_strdel(&line);
 }
 
 /*

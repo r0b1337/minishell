@@ -6,47 +6,11 @@
 /*   By: rdurst <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 19:45:20 by rdurst            #+#    #+#             */
-/*   Updated: 2018/09/05 22:49:56 by rdurst           ###   ########.fr       */
+/*   Updated: 2018/09/06 16:57:40 by rdurst           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-**	env_help - help function needed to pass 25line
-**				norm rule
-*/
-
-char	**env_help(char **av, char **tmpenv)
-{
-	int		pos;
-	char	*tmp;
-	int		err;
-	int		i;
-
-	i = -1;
-	err = 0;
-	while (av[++i])
-	{
-		if (ft_strchr(av[i], '='))
-			tmpenv = replace_var(tmpenv, av[i]);
-		else if ((pos = get_env_var(tmpenv, av[i])) != -1)
-			ft_putendl(tmpenv[pos]);
-		else if ((tmp = get_exec(tmpenv, av[i])) != NULL)
-		{
-			err = exec_command(&av[i], tmpenv);
-			ft_strdel(&tmp);
-			break ;
-		}
-		else
-			err = env_error(av[i]);
-		if (pos != -1 && !ft_strchr(av[i], '='))
-			err = 1;
-	}
-	if (err == 0)
-		print_env(tmpenv);
-	return (tmpenv);
-}
 
 /*
 **	env_builtin -	clone of env utility
@@ -57,10 +21,10 @@ int		env_builtin(int ac, char **av)
 	char	**tmpenv;
 
 	if (ac == 1)
-		return (print_env(envp));
+		return (print_env(g_envp));
 	else
 	{
-		tmpenv = ft_tabcpy(envp);
+		tmpenv = ft_tabcpy(g_envp);
 		env_help(av, tmpenv);
 		free_command(tmpenv);
 	}
@@ -105,9 +69,9 @@ char	*get_var_content(char *var)
 	char	**tmp;
 	char	*ret;
 
-	if ((pos = get_env_var(envp, var)) == -1)
+	if ((pos = get_env_var(g_envp, var)) == -1)
 		return (NULL);
-	tmp = ft_strsplit(envp[pos], '=');
+	tmp = ft_strsplit(g_envp[pos], '=');
 	ret = ft_strdup(tmp[1]);
 	free_command(tmp);
 	return (ret);

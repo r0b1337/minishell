@@ -6,7 +6,7 @@
 /*   By: rdurst <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 19:38:15 by rdurst            #+#    #+#             */
-/*   Updated: 2018/09/05 21:14:40 by rdurst           ###   ########.fr       */
+/*   Updated: 2018/09/06 17:02:15 by rdurst           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int			exec_command(char **command, char **env)
 	if ((bin = get_exec(env, command[0])) == NULL)
 		return (print_error(command[0]));
 	process = fork();
+	signal(SIGINT, process_sighandler);
 	if (process == 0)
 		process = execve(bin, command, env);
 	wait(&process);

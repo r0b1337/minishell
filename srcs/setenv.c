@@ -6,7 +6,7 @@
 /*   By: rdurst <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 19:35:56 by rdurst            #+#    #+#             */
-/*   Updated: 2018/09/05 19:37:22 by rdurst           ###   ########.fr       */
+/*   Updated: 2018/09/06 16:58:31 by rdurst           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ void	set_env(char *var, char *content)
 	i = 0;
 	tmp2 = ft_strjoin(var, "=");
 	tmp = ft_strjoin(tmp2, content);
-	if ((pos = get_env_var(envp, var)) == -1)
-		envp = add_var(envp, tmp);
+	if ((pos = get_env_var(g_envp, var)) == -1)
+		g_envp = add_var(g_envp, tmp);
 	else
 	{
-		ft_strdel(&envp[pos]);
-		envp[pos] = ft_strdup(tmp);
+		ft_strdel(&g_envp[pos]);
+		g_envp[pos] = ft_strdup(tmp);
 	}
 	ft_strdel(&tmp);
 	ft_strdel(&tmp2);
@@ -69,7 +69,7 @@ char	**replace_var(char **env, char *var)
 int		setenv_builtin(int ac, char **av)
 {
 	if (ac == 1)
-		print_env(envp);
+		print_env(g_envp);
 	if (ac == 2)
 		set_env(av[1], "");
 	if (ac == 3)
