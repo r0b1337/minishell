@@ -6,7 +6,7 @@
 /*   By: rdurst <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 19:38:15 by rdurst            #+#    #+#             */
-/*   Updated: 2018/09/06 17:02:15 by rdurst           ###   ########.fr       */
+/*   Updated: 2018/09/09 00:01:25 by rdurst           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char		*get_exec(char **env, char *path)
 
 	i = 0;
 	if (stat(path, &s) == 0 && (s.st_mode & S_IFREG))
-		return (path);
+		return (ft_strdup(path));
 	if ((tmp = get_paths(env)) == NULL)
 		return (NULL);
 	while (tmp[i])
