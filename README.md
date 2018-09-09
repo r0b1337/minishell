@@ -1,11 +1,8 @@
-# minishell [in progress ...]
+# minishell
 minishell project @ 42 school
 
-# things done
-- [x] git and Makefile setup
-- [x] simple command interpreter
-- [x] implement built-ins (echo, exit, cd, env, setenv, and unsetenv)
-- [x] fix memory leaks
-- [x] comment the code
-- [x] remove norm errors
-- [ ] add tutorial to README.md
+# install
+```
+git clone https://github.com/r0bsama/ft_ls.git && cd ft_ls
+make
+```
