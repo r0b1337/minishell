@@ -6,7 +6,7 @@
 /*   By: rdurst <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/05 03:17:58 by rdurst            #+#    #+#             */
-/*   Updated: 2018/09/06 17:04:54 by rdurst           ###   ########.fr       */
+/*   Updated: 2018/09/09 01:54:36 by rdurst           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ char	*get_var_name(char *var);
 **	helper.c
 */
 char	**env_help(char **av, char **tmpenv);
+char	**parse_command(char *s);
 /*
 **	exit.c
 */

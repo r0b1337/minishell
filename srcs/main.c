@@ -6,7 +6,7 @@
 /*   By: rdurst <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/05 03:24:43 by rdurst            #+#    #+#             */
-/*   Updated: 2018/09/08 23:57:08 by rdurst           ###   ########.fr       */
+/*   Updated: 2018/09/09 02:00:16 by rdurst           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ void	minishell(void)
 	signal(SIGINT, signal_handler);
 	if (get_next_line(STDIN_FILENO, &line) != -1 && !ft_strequ(line, ""))
 	{
-		command = ft_strsplit(line, ' ');
-		if (is_builtin(ft_strlen_tab(command), command) != -1)
+		command = parse_command(line);
+		if (ft_strlen_tab(command) == 0 ||
+			is_builtin(ft_strlen_tab(command), command) != -1)
 		{
 			ft_strdel(&line);
 			free_command(command);

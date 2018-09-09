@@ -6,7 +6,7 @@
 /*   By: rdurst <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 19:38:15 by rdurst            #+#    #+#             */
-/*   Updated: 2018/09/09 00:01:25 by rdurst           ###   ########.fr       */
+/*   Updated: 2018/09/09 01:34:20 by rdurst           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ char		**get_paths(char **env)
 	char **tmp;
 	char **ret;
 
+	if (get_env_var(env, "PATH") == -1)
+		return (NULL);
 	if ((tmp = ft_strsplit(env[get_env_var(env, "PATH")], '=')) == NULL)
 		return (NULL);
 	if ((ret = ft_strsplit(tmp[1], ':')) == NULL)
