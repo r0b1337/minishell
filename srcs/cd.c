@@ -6,7 +6,7 @@
 /*   By: rdurst <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 19:53:10 by rdurst            #+#    #+#             */
-/*   Updated: 2018/09/08 23:52:02 by rdurst           ###   ########.fr       */
+/*   Updated: 2018/09/09 05:21:45 by rdurst           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static void	change_cwd(char *cwd)
 	char buf[4096];
 	char *content;
 
+	getcwd(buf, 4096);
+	set_env("PWD", buf);
 	if (!cwd)
 	{
 		chdir((content = get_var_content("HOME")));
